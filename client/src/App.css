@@ -1,0 +1,43 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+.container{
+  background-color: rgb(194, 92, 181);
+  height : 100vh;
+  overflow : hidden;
+  display : flex;
+}
+
+img{
+  width: 35%;
+}
+
+.wrapper{
+  background-color:#fff;
+  width:600px;
+  height:400px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  flex-direction:column;
+}
+
+h1{
+  font-size: 40px;
+  font-weight: 600;
+  margin: 40px 0;
+  color: purple;
+}
+
+button{
+  width: 150px;
+  height: 50px;
+  font-size: 20px;
+  background-color:purple;
+  border: black;
+  border-radius: 5px;
+  border: 2px solid black;
+  margin: 30px 0;
+}
