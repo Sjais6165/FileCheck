@@ -5,8 +5,9 @@ const fileSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    name: {
+    username: {
         type: String,
+        unique: true,
         required: true
     },
     downloadCount: {
@@ -19,3 +20,7 @@ const fileSchema = new mongoose.Schema({
 const File = mongoose.model('file', fileSchema);
 
 export default File;
+
+
+
+
