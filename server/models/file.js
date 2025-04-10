@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const fileSchema = new mongoose.Schema({
+    originalName: String,
     path: {
         type: String,
         required: true
@@ -8,19 +9,22 @@ const fileSchema = new mongoose.Schema({
     username: {
         type: String,
         unique: true,
-        required: true
+        required: false
     },
     downloadCount: {
         type: Number,
-        required: true,
+        // required: true,
         default: 0
     },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    expiresAt: Date,
 })
 
 const File = mongoose.model('file', fileSchema);
 
 export default File;
-
-
 
 

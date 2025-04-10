@@ -4,13 +4,27 @@
 //----------------------------
 
 
+// import { Navigate, Outlet } from "react-router-dom";
+// import { useAuth } from "../context/authcontext";
+
+// const PrivateRoutes = () => {
+//     const { user } = useAuth(); // Ensure this is correctly imported
+
+//     return user ? <Outlet /> : <Navigate to="/login" />;
+// };
+
+// export default PrivateRoutes;
+
+
+//-------------
+
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../context/authcontext";
 
 const PrivateRoutes = () => {
-    const { user } = useAuth(); // Ensure this is correctly imported
+    const { token } = useAuth(); // ✅ Use token instead of user
 
-    return user ? <Outlet /> : <Navigate to="/login" />;
+    return token ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default PrivateRoutes;
