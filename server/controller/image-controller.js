@@ -39,6 +39,7 @@
 //---------------------------------
 
 import File from "../models/file.js";
+import dotenv from 'dotenv';
 
 export const uploadImage = async (request, response) => {
     try {
@@ -52,9 +53,10 @@ export const uploadImage = async (request, response) => {
             name: request.file.originalname,
             expiresAt: new Date(Date.now() + 5 * 60 * 1000) // 5-minute expiration
         });
-
+        dotenv.config();
+        const backerurl = process.env.BASE_URL
         console.log(file);
-        response.status(200).json({ path: `http://localhost:8000/file/${file._id}` });
+        response.status(200).json({ path: `{backerurl}/file/${file._id}` });
 
     } catch (error) {
         console.error(error.message);
