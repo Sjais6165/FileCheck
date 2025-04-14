@@ -36,6 +36,7 @@ import fs from "fs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import File from "../models/file.js"; // Adjust the path based on your structure
+import bcrypt from "bcryptjs";
 
 dotenv.config();
 
