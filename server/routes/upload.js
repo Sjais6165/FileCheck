@@ -6,6 +6,7 @@ import File from "../models/file.js";
 import dotenv from "dotenv";
 import fs from "fs";
 import mongoose from "mongoose";
+import { authenticateUser } from "../middleware/auth.js";
 
 dotenv.config();
 
@@ -23,7 +24,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // ✅ Upload route (POST /upload)
-router.post("/upload", upload.single("file"), async (req, res) => {
+router.post("/upload", authenticateUser, upload.single("file"), async (req, res) => {
     try {
         if (!req.file) return res.status(400).json({ error: "No file uploaded" });
 
@@ -32,6 +33,7 @@ router.post("/upload", upload.single("file"), async (req, res) => {
             originalname: req.file.originalname,
             path: req.file.path,
             size: req.file.size,
+            username: req.user.username,
             // originalname: req.file.originalname,
              expiresAt: new Date(Date.now() + 3 * 60 * 1000)
         });
