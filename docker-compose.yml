@@ -1,0 +1,73 @@
+# version: '3.8'
+
+# services:
+#   frontend:
+#     build:
+#       context: ./client  # React frontend code lives here
+#     container_name: file_sharing_frontend
+#     ports:
+#       - "3000:3000"  # Exposing React app on port 3000
+#     stdin_open: true
+#     tty: true
+#     environment:
+#       - REACT_APP_API_URL=http://backend:5000  # Backend URL for frontend to connect
+#     depends_on:
+#       - backend  # Wait for backend to be up before frontend starts
+
+#   backend:
+#     build:
+#       context: ./server  # Express backend code lives here
+#     container_name: file_sharing_backend
+#     ports:
+#       - "5000:5000"  # Exposing backend on port 5000
+#     environment:
+#       - NODE_ENV=development
+#       - MONGO_URI=mongodb://db:27017/file_sharing_db  # MongoDB URI
+#     volumes:
+#       - ./server/uploads:/app/uploads  # Persist uploaded files
+#       - ./server:/app  # Live updates during development
+#     depends_on:
+#       - db  # Wait for MongoDB to be up before starting the backend
+
+#   db:
+#     image: mongo  # Use the official MongoDB image
+#     container_name: file_sharing_db
+#     ports:
+#       - "27017:27017"  # Exposing MongoDB on port 27017
+#     volumes:
+#       - db_data:/data/db  # Persistent storage for MongoDB
+
+# volumes:
+#   db_data:
+
+
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: file-share-backend
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./server/.env
+    volumes:
+      - ./server:/app
+    networks:
+      - file-sharing-network
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: file-share-frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - file-sharing-network
+
+networks:
+  file-sharing-network:
+    driver: bridge
